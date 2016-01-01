@@ -1,0 +1,104 @@
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta http-equiv="Content-Type" content="tect/html; charset=UTF-8">
+<title>MapReduceApp</title>
+<link rel="stylesheet" href="{% static "demo_style.css" %}">
+<script type="text/javascript">
+$(document).ready(funtion(){
+
+	$('#wizard').smartWizard({transitionEffect:'fade',onFinish:onFinishCallback});
+funtion onFinishCallback(){
+$('form').submit();
+}
+});
+</script>
+</head>
+<body>
+<div class="demoHead">
+<div>
+<div style="float:left;">
+<h1>MapReduce App</hi>
+<h2>A cloud based app for MapReduce</h2>
+</div>
+
+<div stye="clear:both;"></div>
+</div>
+</div>
+
+<form action="/" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<br>
+<table allign="center" border="0" cellpadding="0" cellspacing="0">
+<tr><td>
+<!-Smart Wizard->
+<h2>Submit MapReduce Job </h2>
+<div id="wizard" class ="swMain">
+<ul>
+<li><a href="#step-1">
+<label class="stepNumber">1</label>
+<span class="stepDesc">
+Step 1</br>
+<small> Select data to analyze</small>
+</span>
+</a></li>
+<li><a href="#step-2">
+<label class="stepNumber">2</label>
+<span class="stepDesc">
+Step 2</br>
+<small> Select MapReduce program</small>
+</span>
+</a></li>
+<li><a href="#step-3">
+<label class="stepNumber">3</label>
+<span class="stepDesc">
+Step 3</br>
+<small> submit job</small>
+</span>
+</a></li>
+</ul>
+<div id="step-1">
+<h2 class="StepTitle"> Select data to analyse</h2>
+<h4> Choose the data file:</h4>
+<p>{{form.non_field_errors}}</p>
+<p>
+{{form.myfilefield.errors}}
+{{form.myfilefield}}
+</p>
+
+</div>
+<div id="step-2">
+<h2 class="StepTitle"> Select Map and reduce Programs</h2><br>
+<h5> Choose predefined map and reduce:</h5>
+<select name="mapreduceprogram">
+<option value="none">Select map reduce programs..</option>
+<option value="wordcount">Word Count</option>
+<option value="invertedindex">Inverted Index</option>
+</select>
+<h4>OR</h4>
+<h5>Choose Custom Mapper:</h5>
+<p>{{mapform.non_field_errors}}</p>
+<p>
+{{mapform.mymapfield.errors}}
+{{mapform.mymapfield}}
+</p>
+
+<h5>Choose custum Reducer:</h5>
+<p>{{reduceform.non_field_errors}}</p>
+<p>
+{{reduceform.myreducefield.errors}}
+{{reduceform.myreducefield}}
+</p>
+</div>
+<div id="step-3">
+<h2 class="StepTitle">Submit Job</h2>
+<br>
+<h4>Enter email to get job completion notification ..</h4><br>
+<input type="text" name="email">
+</div>
+</div>
+</td></tr>
+</table>
+</form>
+</body>
+</html>
